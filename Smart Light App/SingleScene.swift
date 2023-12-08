@@ -42,7 +42,6 @@ struct SingleScene {
                 return false
             }
         }
-        
         return true
     }
 }

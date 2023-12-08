@@ -27,15 +27,12 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            
             Image("backgroundtest4")
                 .resizable()
                 .scaledToFill()
                 .edgesIgnoringSafeArea(.all)
-            
             VStack(alignment: .leading) {
                 Spacer()
-                
                 Text("Smart Light")
                     .font(.largeTitle)
                     .foregroundStyle(Color.customLightestGray)
@@ -44,13 +41,9 @@ struct ContentView: View {
                     .padding(.leading)
                 RoomSelectionView(selection: $selectedRoom)
                     .padding(.top)
-                
-                VStack {
-                    DashboardView(selectedRoom: $selectedRoom)
-                }
-                .frame(height: 450)
+                LightControl(selectedRoom: $selectedRoom)
+                    .frame(height: 450)
                 Spacer()
-                
                 SceneSelectionView(scenes: $scenes)
                 
             }

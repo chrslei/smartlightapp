@@ -54,9 +54,7 @@ struct RoomSelectionView: View {
                     TabBarButton(selected: $selection, assignedTag: index, color: getColor(for: index))
                         .offset(x: self.offsetForTab(at: index))
                         .opacity(selection == index ? 1 : 1)
-                    
                 }
-                
             }
             .frame(height: 60)
             
@@ -98,15 +96,13 @@ struct TabBarButton: View {
     var body: some View {
         Rectangle()
             .fill(color)
-        
-            .frame(width: selected == assignedTag ? 90 : 80, height: selected == assignedTag ? 50 : 40) // Adjust size based on selection
+            .frame(width: selected == assignedTag ? 90 : 80, height: selected == assignedTag ? 50 : 40)
             .cornerRadius(10)
             .shadow(color: .customLighGray.opacity(1), radius: 0, x: 4, y: 5)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.customLightestGray, lineWidth: 0)
             )
-        
             .overlay(
                 getIcon(for: assignedTag)
                     .foregroundColor(.customLightestGray)
@@ -118,7 +114,6 @@ struct TabBarButton: View {
                     selected = assignedTag
                 }
             }
-        
     }
 }
 

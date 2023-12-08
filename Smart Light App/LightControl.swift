@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct DashboardView: View {
+struct LightControl: View {
     @State private var showOverlay = false
     @Binding var selectedRoom: Int
     @EnvironmentObject var lights: Lights

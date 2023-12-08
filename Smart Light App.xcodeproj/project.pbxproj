@@ -17,7 +17,7 @@
 		8AE735D12B1DEE90003982AD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AE735D02B1DEE90003982AD /* Preview Assets.xcassets */; };
 		8AE735D82B1DFC78003982AD /* RoomSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE735D72B1DFC78003982AD /* RoomSelectionView.swift */; };
 		8AE735DC2B1E0D04003982AD /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE735DB2B1E0D04003982AD /* ColorExtension.swift */; };
-		8AE735DE2B1E48E4003982AD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE735DD2B1E48E4003982AD /* DashboardView.swift */; };
+		8AE735DE2B1E48E4003982AD /* LightControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE735DD2B1E48E4003982AD /* LightControl.swift */; };
 		8AFAD9142B1F261400776155 /* SceneSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFAD9132B1F261400776155 /* SceneSelectionView.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +33,7 @@
 		8AE735D02B1DEE90003982AD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8AE735D72B1DFC78003982AD /* RoomSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSelectionView.swift; sourceTree = "<group>"; };
 		8AE735DB2B1E0D04003982AD /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
-		8AE735DD2B1E48E4003982AD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		8AE735DD2B1E48E4003982AD /* LightControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightControl.swift; sourceTree = "<group>"; };
 		8AFAD9132B1F261400776155 /* SceneSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,7 +70,7 @@
 			children = (
 				8AE735C92B1DEE8F003982AD /* Smart_Light_AppApp.swift */,
 				8AE735CB2B1DEE8F003982AD /* ContentView.swift */,
-				8AE735DD2B1E48E4003982AD /* DashboardView.swift */,
+				8AE735DD2B1E48E4003982AD /* LightControl.swift */,
 				8AE735D72B1DFC78003982AD /* RoomSelectionView.swift */,
 				8AFAD9132B1F261400776155 /* SceneSelectionView.swift */,
 				8A26F37D2B20B60300CF0271 /* Light.swift */,
@@ -162,7 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AE735CC2B1DEE8F003982AD /* ContentView.swift in Sources */,
-				8AE735DE2B1E48E4003982AD /* DashboardView.swift in Sources */,
+				8AE735DE2B1E48E4003982AD /* LightControl.swift in Sources */,
 				8A2DAF0A2B212EB800B999EC /* Lights.swift in Sources */,
 				8AE735D82B1DFC78003982AD /* RoomSelectionView.swift in Sources */,
 				8A26F3802B20D02000CF0271 /* SharedViewModel.swift in Sources */,
