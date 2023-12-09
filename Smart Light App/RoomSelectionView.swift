@@ -5,11 +5,11 @@ struct RoomSelectionView: View {
     
     func offsetForTab(at index: Int) -> CGFloat {
         if index == selection {
-            return 0
+            return -10
         } else if index < selection {
             return 0
         } else {
-            return 10
+            return 0
         }
     }
     
@@ -49,7 +49,7 @@ struct RoomSelectionView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: -20) {
+            VStack(spacing: -10) {
                 ForEach(0..<5) { index in
                     TabBarButton(selected: $selection, assignedTag: index, color: getColor(for: index))
                         .offset(x: self.offsetForTab(at: index))
@@ -59,17 +59,18 @@ struct RoomSelectionView: View {
             .frame(height: 60)
             
             HStack(spacing: -20) {
-                ForEach(0..<5) { index in
-                    Text(RoomSelectionView.getTitle(for: index).uppercased())
-                        .padding(.top)
-                        .font(.system(size: 15, weight: .bold, design: .default))
-                        .foregroundColor(selection == index ? .white : .clear)
-                        .frame(width: selection == index ? 150 : 80, height: 20)
-                        .offset(x: self.offsetForTab(at: index))
-                }
+//                ForEach(0..<5) { index in
+//                    Text(RoomSelectionView.getTitle(for: index).uppercased())
+//                        .padding(.top)
+//                        .font(.system(size: 15, weight: .bold, design: .default))
+//                        .foregroundColor(selection == index ? .white : .clear)
+//                        .frame(width: selection == index ? 150 : 80, height: 20)
+//                        .offset(x: self.offsetForTab(at: index))
+//                }
             }
         }
         .animation(.easeInOut, value: selection)
+        .opacity(1)
     }
 }
 
@@ -96,17 +97,17 @@ struct TabBarButton: View {
     var body: some View {
         Rectangle()
             .fill(color)
-            .frame(width: selected == assignedTag ? 90 : 80, height: selected == assignedTag ? 50 : 40)
+            .frame(width: selected == assignedTag ? 50 : 50, height: selected == assignedTag ? 80 : 80)
             .cornerRadius(10)
             .shadow(color: .customLighGray.opacity(1), radius: 0, x: 4, y: 5)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.customLightestGray, lineWidth: 0)
+                    .stroke(Color.customLightestGray, lineWidth: 2)
             )
             .overlay(
                 getIcon(for: assignedTag)
                     .foregroundColor(.customLightestGray)
-                    .font(.system(size: 28))
+                    .font(.system(size: selected == assignedTag ? 25 : 25))
             )
             .zIndex(selected == assignedTag ? 1 : 0)
             .onTapGesture {

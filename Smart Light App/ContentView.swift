@@ -32,16 +32,19 @@ struct ContentView: View {
                 .scaledToFill()
                 .edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading) {
-                Spacer()
-                Text("Smart Light")
+                Text(" ")
                     .font(.largeTitle)
                     .foregroundStyle(Color.customLightestGray)
                     .bold()
                     .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                     .padding(.leading)
-                RoomSelectionView(selection: $selectedRoom)
                     .padding(.top)
-                LightControl(selectedRoom: $selectedRoom)
+                    .padding(.top)
+                    .padding(.top)
+                    .padding(.top)
+
+                    .padding(.top)
+                LightControlView(selectedRoom: $selectedRoom)
                     .frame(height: 450)
                 Spacer()
                 SceneSelectionView(scenes: $scenes)
@@ -50,6 +53,8 @@ struct ContentView: View {
             .onReceive(lights.objectWillChange) {
                 updateSceneSelection()
             }
+            RoomSelectionView(selection: $selectedRoom)
+                .offset(x: 195, y:-100)
         }
     }
 }

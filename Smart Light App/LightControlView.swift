@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LightControl: View {
+struct LightControlView: View {
     @State private var showOverlay = false
     @Binding var selectedRoom: Int
     @EnvironmentObject var lights: Lights
@@ -12,23 +12,91 @@ struct LightControl: View {
             return lights.lights.filter { $0.room == selectedRoom }
         }
     }
+    static func getTitle(for index: Int) -> String {
+        switch index {
+        case 0:
+            return "Favoriten"
+        case 1:
+            return "Wohnzimmer"
+        case 2:
+            return "Küche"
+        case 3:
+            return "Bad"
+        case 4:
+            return ""
+        default:
+            return "Unbekannt"
+        }
+    }
     
     var body: some View {
-        VStack {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 116))], spacing: 30) {
-                ForEach(filteredLights, id: \.id) { light in
-                    LightButton(light: light, showOverlay: $showOverlay)
+        ZStack{
+            Text(LightControlView.getTitle(for: selectedRoom))
+                .font(.largeTitle)
+                .foregroundStyle(Color.customLightestGray)
+                .bold()
+                .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
+                .offset(x: 40, y: -265)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            OverviewPanel()
+                .offset(x: -7, y: -170)
+            VStack {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 116))], spacing: 30) {
+                    ForEach(filteredLights, id: \.id) { light in
+                        LightButton(light: light, showOverlay: $showOverlay)
+                    }
                 }
+                .padding(.top)
+                .padding(.top)
+                .padding(.trailing)
+                .padding(.trailing)
+                Spacer()
             }
-            .padding(.top)
-            .padding(.top)
-            .padding(.top)
-            .padding(.trailing)
-            .padding(.trailing)
-            Spacer()
+            .frame(width: 350)
+            .padding(.leading)
+            .offset(y: 110)
+        }
+        .offset(x: -10)
+    }
+}
+
+struct OverviewPanel: View {
+    var body: some View {
+        ZStack() {
+            Rectangle()
+                .fill(LinearGradient(gradient: Gradient(colors: [ .clear, .white]), startPoint: .top, endPoint: .bottom))
+                .frame(width: 300, height: 100)
+                .cornerRadius(30)
+                .opacity(0.2)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(Color.white, lineWidth: 2)
+                        .opacity(0.6)
+                )
+            VStack{
+                Text("Guten Morgen, Marlene!")
+                    .foregroundStyle(Color.white)
+                    .font(.system(size: 20))
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading) // Optional, für zusätzlichen Abstand vom Rand
+                Text("0 aktive Leuchten")
+                    .bold()
+                    .foregroundStyle(Color.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading) // Optional, für zusätzlichen Abstand vom Rand
+                Text("Aktueller Verbrauch: 2,4 kWh")
+                    .bold()
+                    .foregroundStyle(Color.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading) // Optional, für zusätzlichen Abstand vom Rand
+            }
+            .offset(x: 50)
         }
     }
 }
+
 
 struct LightButton: View {
     @ObservedObject var light: Light
@@ -54,7 +122,7 @@ struct LightButton: View {
         ZStack {
             Rectangle()
                 .fill(Color.customLightestGray)
-                .frame(width: 175, height: 100)
+                .frame(width: 140, height: 100)
                 .cornerRadius(20)
                 .onTapGesture {
                     if light.brightness > 0 {
@@ -64,13 +132,13 @@ struct LightButton: View {
                         light.setBrightness(to: 100)
                     }
                 }
-                .offset(x:15)
+                .offset(x:0)
                 .shadow(color: Color.gray.opacity(0.5), radius: 0, x: 4, y: 5)
-                .opacity(showOverlay && !isShowingDetails || !showOverlay && !isShowingDetails ? 1.0 : 0)
+                .opacity(showOverlay && !isShowingDetails || !showOverlay && !isShowingDetails ? 1 : 0)
             
             Rectangle()
                 .fill(light.brightness > 0 ? Color.customYellow : Color.blue)
-                .frame(width: 25, height: 25)
+                .frame(width: 20, height: 26)
                 .cornerRadius(5)
                 .shadow(color: Color.gray.opacity(0.5), radius: 0, x: 3, y: 3)
                 .onTapGesture {
@@ -82,26 +150,26 @@ struct LightButton: View {
                         light.setBrightness(to: 100)
                     }
                 }
-                .offset(x: (showOverlay && !isShowingDetails) || (!showOverlay && !isShowingDetails) ? -50 : -20)
+                .offset(x: (showOverlay && !isShowingDetails) || (!showOverlay && !isShowingDetails) ? -50 : -35)
             
             if !isShowingDetails {
                 VStack(alignment: .leading){
                     Text(light.name)
                     
-                        .font(.system(size: 18))
+                        .font(.system(size: 13))
                         .bold()
                     
                     Text("\(String(format: "%.0f", light.brightness)) %")
                     
-                        .font(.system(size: 17))
+                        .font(.system(size: 13))
                         .bold()
                     Text(RoomSelectionView.getTitle(for: light.room))
                     
-                        .font(.system(size: 17))
+                        .font(.system(size: 13))
                 }
                 .foregroundColor(.customBlack)
                 .frame(width: 300, height: 100)
-                .offset(x:25)
+                .offset(x:12)
             }
             
         }
@@ -134,7 +202,7 @@ struct LightButton: View {
                         .offset(x: -40)
                         .frame(width: 100)
                         .clipped()
-                        .offset(x: 60)
+                        .offset(x: 40)
                 }
             }
         )
