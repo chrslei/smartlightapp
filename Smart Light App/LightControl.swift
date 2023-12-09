@@ -66,7 +66,7 @@ struct LightButton: View {
                 }
                 .offset(x:15)
                 .shadow(color: Color.gray.opacity(0.5), radius: 0, x: 4, y: 5)
-                .opacity(showOverlay && !isShowingDetails || !showOverlay && !isShowingDetails ? 1.0 : 0)
+                .opacity(showOverlay && !isShowingDetails || !showOverlay && !isShowingDetails ? 0.7 : 0)
             
             Rectangle()
                 .fill(light.brightness > 0 ? Color.customYellow : Color.blue)

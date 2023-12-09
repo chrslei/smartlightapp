@@ -1,5 +1,4 @@
 import SwiftUI
-
 struct RoomSelectionView: View {
     @Binding var selection: Int
     
@@ -9,7 +8,7 @@ struct RoomSelectionView: View {
         } else if index < selection {
             return 0
         } else {
-            return 10
+            return 0
         }
     }
     
@@ -49,25 +48,33 @@ struct RoomSelectionView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: -20) {
+            HStack(spacing: 5) {
                 ForEach(0..<5) { index in
-                    TabBarButton(selected: $selection, assignedTag: index, color: getColor(for: index))
-                        .offset(x: self.offsetForTab(at: index))
-                        .opacity(selection == index ? 1 : 1)
+                    VStack{
+                        ZStack{  TabBarButton(selected: $selection, assignedTag: index, color: getColor(for: index))
+                            // .offset(x: self.offsetForTab(at: index))
+                                .opacity(selection == index ? 1 : 1)
+                                .overlay(
+                                    Group {
+                                        Text(RoomSelectionView.getTitle(for: index).uppercased())
+                                                  .font(.system(size: 15, weight: .bold, design: .default))
+                                                  .foregroundColor(selection == index ? Color.customLightestGray : .clear)
+                                                  .frame(width: 120, height: 20)
+                                                  .offset(y:38)
+                                                  .opacity(0.9)
+                                    }
+                                )
+    
+                        }
+                        
+                      
+                    }
                 }
             }
             .frame(height: 60)
+            .padding(.leading)
             
-            HStack(spacing: -20) {
-                ForEach(0..<5) { index in
-                    Text(RoomSelectionView.getTitle(for: index).uppercased())
-                        .padding(.top)
-                        .font(.system(size: 15, weight: .bold, design: .default))
-                        .foregroundColor(selection == index ? .white : .clear)
-                        .frame(width: selection == index ? 150 : 80, height: 20)
-                        .offset(x: self.offsetForTab(at: index))
-                }
-            }
+            
         }
         .animation(.easeInOut, value: selection)
     }
@@ -94,19 +101,21 @@ struct TabBarButton: View {
     }
     
     var body: some View {
+        
         Rectangle()
             .fill(color)
-            .frame(width: selected == assignedTag ? 90 : 80, height: selected == assignedTag ? 50 : 40)
-            .cornerRadius(10)
-            .shadow(color: .customLighGray.opacity(1), radius: 0, x: 4, y: 5)
+            .frame(width: selected == assignedTag ? 80 : 65, height: selected == assignedTag ? 40 : 30)
+            .cornerRadius(5)
+            //.shadow(color: .customLighGray.opacity(1), radius: 0, x: 4, y: 5)
             .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.customLightestGray, lineWidth: 0)
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(Color.customLightestGray, lineWidth: 2)
+                    .opacity(0.6)
             )
             .overlay(
                 getIcon(for: assignedTag)
                     .foregroundColor(.customLightestGray)
-                    .font(.system(size: 28))
+                    .font(.system(size: 20))
             )
             .zIndex(selected == assignedTag ? 1 : 0)
             .onTapGesture {
