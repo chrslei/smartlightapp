@@ -4,7 +4,11 @@ struct SceneSelectionView: View {
     @State private var selections = Set<Int>()
     @Binding var scenes: [SingleScene]
     @EnvironmentObject var lights: Lights
+    @State private var isExpanded = false
     
+    private var gridLayout: [GridItem] {
+        Array(repeating: .init(.flexible()), count: 3) // Adjust the count to control the number of columns
+    }
     func isSceneSelected(_ index: Int) -> Bool {
         selections.contains(index)
     }
@@ -65,29 +69,70 @@ struct SceneSelectionView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 10) {
-                    ForEach(scenes.indices, id: \.self) { index in
-                        SceneBarButton(scene: $scenes[index], assignedTag: index, color: .customScene)
-                            .offset(x: self.offsetForTab(at: index))
-                            .onTapGesture {
-                                withAnimation {
-                                    toggleScene(index)
-                                }
-                            }
-                    }
-                }
-                .frame(height: 100)
-                .padding(.bottom)
-                .padding(.bottom)
-            }
-            .animation(.easeInOut, value: selections)
-        }
-        .background(Color.customLightestGray)
-        .overlay(Divider().background(.gray), alignment: .top)
-    }
-}
+         VStack(spacing: 0) {
+             Capsule()
+                 .foregroundColor(.gray
+                     .opacity(0.25))
+                 .frame(height: 4.0)
+                 .padding(.horizontal, isExpanded ? 40 : 120)
+                 .offset(y: 10)
+             Button(action: {
+                 withAnimation {
+                     isExpanded.toggle() // Toggle the state when the button is tapped
+                 }
+             }) {
+                 Image(systemName: isExpanded ? "chevron.down" : "chevron.up")
+                     .padding()
+                     .foregroundColor(.gray)
+                     .bold()
+                     .brightness(isExpanded ? 0.2 : 0.2)
+             }
+             .offset(y: isExpanded ? 0 : 0)
+             .padding(.bottom)
+
+             Group {
+                 if isExpanded {
+                     // Use LazyVGrid when expanded
+                     LazyVGrid(columns: gridLayout, spacing: 15) {
+                         ForEach(scenes.indices, id: \.self) { index in
+                             SceneBarButton(scene: $scenes[index], assignedTag: index, color: .customScene)
+                                 .onTapGesture {
+                                     withAnimation {
+                                         toggleScene(index)
+                                     }
+                                 }
+                         }
+                     }
+                     .padding()
+                     .offset(y: -30)
+                 } else {
+                     // Use ScrollView for horizontal scrolling when not expanded
+                     ScrollView(.horizontal, showsIndicators: false) {
+                         HStack(spacing: 10) {
+                             ForEach(scenes.indices, id: \.self) { index in
+                                 SceneBarButton(scene: $scenes[index], assignedTag: index, color: .customScene)
+                                     .offset(x: self.offsetForTab(at: index))
+                                     .onTapGesture {
+                                         withAnimation {
+                                             toggleScene(index)
+                                         }
+                                     }
+                             }
+                         }
+                         .frame(height: 50)
+                         .padding(.bottom)
+                         .offset(y: 0)
+                     }
+                     .offset(y: -20)
+                 }
+             }
+             .animation(.easeInOut, value: selections)
+         }
+         .background(Color.customLightestGray)
+         //.overlay(Divider().background(.gray), alignment: .top)
+     }
+ }
+
 
 struct SceneBarButton: View {
     @Binding var scene: SingleScene

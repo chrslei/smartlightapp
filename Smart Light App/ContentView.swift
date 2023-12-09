@@ -44,11 +44,18 @@ struct ContentView: View {
                 LightControl(selectedRoom: $selectedRoom)
                     .frame(height: 450)
                 Spacer()
-                SceneSelectionView(scenes: $scenes)
+             Spacer()
+                Spacer()
+                Spacer()
                 
             }
             .onReceive(lights.objectWillChange) {
                 updateSceneSelection()
+            }
+            VStack{
+                Spacer()
+                SceneSelectionView(scenes: $scenes)
+                    //.offset(y:360)
             }
         }
     }

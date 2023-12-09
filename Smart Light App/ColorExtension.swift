@@ -38,3 +38,4 @@ struct ColorExtensionView_Previews: PreviewProvider {
                                                Light(name: "Sideboard", room: 3, brightness: 0) ]))
     }
 }
+

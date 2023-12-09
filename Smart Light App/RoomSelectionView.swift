@@ -103,18 +103,20 @@ struct TabBarButton: View {
     var body: some View {
         
         Rectangle()
+            //.fill(color)
             .fill(color)
             .frame(width: selected == assignedTag ? 80 : 65, height: selected == assignedTag ? 40 : 30)
-            .cornerRadius(5)
+            .cornerRadius(10)
+            .opacity(1)
             //.shadow(color: .customLighGray.opacity(1), radius: 0, x: 4, y: 5)
             .overlay(
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color.customLightestGray, lineWidth: 2)
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.customLightestGray, lineWidth: 2.5)
                     .opacity(0.6)
             )
             .overlay(
                 getIcon(for: assignedTag)
-                    .foregroundColor(.customLightestGray)
+                    .foregroundColor(.white)
                     .font(.system(size: 20))
             )
             .zIndex(selected == assignedTag ? 1 : 0)
