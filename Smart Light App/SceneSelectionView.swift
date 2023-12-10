@@ -72,8 +72,8 @@ struct SceneSelectionView: View {
          VStack(spacing: 0) {
              Capsule()
                  .foregroundColor(.gray
-                     .opacity(0.25))
-                 .frame(height: 4.0)
+                    .opacity(0.5))
+                 .frame(height: 3.0)
                  .padding(.horizontal, isExpanded ? 40 : 120)
                  .offset(y: 10)
              Button(action: {
@@ -128,8 +128,8 @@ struct SceneSelectionView: View {
              }
              .animation(.easeInOut, value: selections)
          }
-         .background(Color.customLightestGray)
-         //.overlay(Divider().background(.gray), alignment: .top)
+         .background(Color.white)
+         .overlay(Divider().background(.gray), alignment: .top)
      }
  }
 
@@ -169,6 +169,9 @@ struct SceneView_Previews: PreviewProvider {
                                                Light(name: "Stehlampe", room: 2, brightness: 0),
                                                Light(name: "Tischlampe", room: 2, brightness: 0),
                                                Light(name: "Wandleuchte", room: 3, brightness: 0),
-                                               Light(name: "Sideboard", room: 3, brightness: 0) ]))
+                                              // Light(name: "Decke", room: 3, brightness: 0),
+                                               //Light(name: "Tischlampe", room: 3, brightness: 0), Light(name: "Sideboard", room: 3, brightness: 0) 
+                                              ])
+                                               )
     }
 }

@@ -13,6 +13,23 @@ struct ContentView: View {
     @State private var scenes: [SingleScene] = [SingleScene(name: "Night", number: 0, brightnesses: [0.0, 0, 0, 0, 0, 0], image: Image(systemName: "moon.fill")), SingleScene(name: "Morning", number: 0, brightnesses: [40, 40, 40, 40, 40, 40], image: Image(systemName: "sun.horizon.fill")), SingleScene(name: "Work", number: 0, brightnesses: [0, 0, 30, 30, 30, 30], image: Image(systemName: "suitcase")), SingleScene(name: "Maximum", number: 0, brightnesses: [40, 40, 40, 40, 40, 40], image: Image(systemName: "light.max")), SingleScene(name: "Gear", number: 0, brightnesses: [40, 40, 40, 40, 40, 40], image: Image(systemName: "gear")) ]
     @EnvironmentObject var lights: Lights
     
+    func getColor(for index: Int) -> Color {
+        switch index {
+        case 0:
+            return .white
+        case 1:
+            return .cyan
+        case 2:
+            return .purple
+        case 3:
+            return .orange
+        case 4:
+            return .gray
+        default:
+            return .gray
+        }
+    }
+    
     private func updateSceneSelection() {
         for index in scenes.indices {
             if scenes[index].isSelected {
@@ -31,11 +48,18 @@ struct ContentView: View {
                 .resizable()
                 .scaledToFill()
                 .edgesIgnoringSafeArea(.all)
+                .grayscale(1)
+            Rectangle()
+                .fill(getColor(for: selectedRoom))
+                .edgesIgnoringSafeArea(.all)
+                .opacity(selectedRoom == 0 ? 0.1 : 0.2)
+                .brightness(0.7)
+            
             VStack(alignment: .leading) {
                 Spacer()
                 Text("Smart Light")
                     .font(.largeTitle)
-                    .foregroundStyle(Color.customLightestGray)
+                    .foregroundStyle(Color.white)
                     .bold()
                     .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                     .padding(.leading)
